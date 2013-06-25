@@ -1,16 +1,17 @@
 # Installation directories
 
 # Default installation prefix
-PREFIX=/usr/local
+PREFIX=/usr
 
 # System's libraries directory (where binary libraries are installed)
 LUA_LIBDIR= $(PREFIX)/lib/lua/5.1
 
 # Lua includes directory
-LUA_INC= $(PREFIX)/include
+# if ENABLE_CRYPTO_THREAD if use CRYPT_thread. (not implemented yet)
+LUA_INC= $(PREFIX)/include/lua5.1
 
 # OS dependent
-LIB_OPTION= -shared #for Linux
+LIB_OPTION= -shared -lpthread #for Linux
 #LIB_OPTION= -bundle -undefined dynamic_lookup #for MacOS X
 
 LIBNAME= $T.so.$V
@@ -18,7 +19,7 @@ LIBNAME= $T.so.$V
 # Compilation directives
 WARN_MOST= -Wall -fPIC -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings -pedantic
 WARN= -Wall -fPIC
-INCS= -I$(LUA_INC)
+INCS= -I$(LUA_INC) 
 CFLAGS= $(WARN) $(INCS)
 CC= gcc -g -fPIC $(CFLAGS)
 
